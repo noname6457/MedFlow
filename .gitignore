@@ -1,0 +1,21 @@
+# Python virtual environments
+.venv/
+venv/
+env/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Python cache
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Django local database
+db.sqlite3
+
+# IDE settings
+.vscode/
+.idea/
