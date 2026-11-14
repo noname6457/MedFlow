@@ -54,7 +54,9 @@ class DoctorListView(generics.ListAPIView):
 
             
 class DoctorDetaileView(generics.RetrieveAPIView):
-    queryset = Doctor.objects.select_related("specialization").all()
+    queryset = Doctor.objects.select_related(
+        "specialization"
+    ).filter(is_active=True)
 
     serializer_class = DoctorSerializer
 

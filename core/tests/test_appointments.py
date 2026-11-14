@@ -1,20 +1,11 @@
-from django.test import TestCase
-
 from datetime import timedelta
 
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.utils import timezone
-
 from rest_framework.test import APIClient
 
-from .models import (
-    Appointment,
-    AppointmentSlot,
-    Doctor,
-    Specialization,
-)
-
+from core.models import Appointment, AppointmentSlot, Doctor, Specialization
 
 User = get_user_model()
 
@@ -163,3 +154,34 @@ class AppointmentBookingTests(TestCase):
                 patient=other_patient
             ).exists()
         )
+
+class QueryOptimizationTests(TestCase):
+
+    def setUp(self):
+        self.specialization = Specialization.objects.create(
+            name="Терапевт"
+        )
+
+        for number in range(10):
+            Doctor.objects.create(
+                first_name=f"Имя{number}",
+                last_name=f"Фамилия{number}",
+                specialization=self.specialization,
+                experience_years=number + 1
+            )
+
+    def test_doctor_list_query_count(self):
+        with self.assertNumQueries(1):
+            response = self.client.get("/api/doctors/")
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_doctor_detail_query_count(self):
+        doctor = Doctor.objects.first()
+
+        with self.assertNumQueries(1):
+            response = self.client.get(
+                f"/api/doctors/{doctor.id}/"
+            )
+
+        self.assertEqual(response.status_code, 200)

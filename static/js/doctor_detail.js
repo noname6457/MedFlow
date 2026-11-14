@@ -9,10 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const message = document.getElementById("booking-message");
     const bookButton = document.getElementById("book-button");
 
-    const csrfToken = form.querySelector(
-        "[name=csrfmiddlewaretoken]"
-    ).value;
-
     let selectedSlot = null;
     let availableSlots = [];
     let loadingController = null;
@@ -170,25 +166,31 @@ document.addEventListener("DOMContentLoaded", () => {
         showMessage("Записываем на приём...");
 
         try {
-            const response = await fetch(
+            const { response, data } = await MedFlowAPI.request(
                 `/api/doctors/${doctorId}/slots/${slotId}/book/`,
-                {
-                    method: "POST",
-                    credentials: "same-origin",
-                    headers: {
-                        "X-CSRFToken": csrfToken
-                    }
-                }
+                {method: "POST"}
             );
 
-            if (response.status === 401 ||
-                response.status === 403) {
-
-                showMessage(
-                    "Для записи необходимо войти в аккаунт.",
-                    "error"
+           if (response.status === 401 || response.status === 403) {
+                const authCheck = await MedFlowAPI.request(
+                    "/api/auth/me/"
                 );
-                return;
+
+                if (authCheck.response.status === 401 || authCheck.response.status === 403) {
+
+                    const next = encodeURIComponent(
+                        window.location.pathname
+                    );
+
+                    window.location.assign(
+                        `/login/?next=${next}`
+                    );
+                    return;
+                }
+
+                throw new Error(
+                    "Доступ запрещён. Обновите страницу и попробуйте снова."
+                );
             }
 
             if (response.status === 409) {
@@ -202,18 +204,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            if (!response.ok) {
-                let errorText = "Не удалось создать запись.";
-
-                try {
-                    const data = await response.json();
-                    errorText = data.error || errorText;
-                } catch {
-                    // Ответ сервера может не содержать JSON.
-                }
-
-                throw new Error(errorText);
-            }
+            if (!response.ok) 
+                throw new Error(
+                    data?.error || "Не удалось создать запись."
+                );
 
             showMessage(
                 "Вы успешно записались на приём!",
