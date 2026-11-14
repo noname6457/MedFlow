@@ -1,0 +1,123 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    {{ doctor }} — MedFlow
+{% endblock %}
+
+{% block content %}
+
+<section class="profile-section">
+    <div class="container">
+
+        <a href="/doctors/" class="back-link">
+            ← Вернуться к врачам
+        </a>
+
+        <div class="profile-card">
+
+            <div class="profile-avatar">
+                {{ doctor.first_name|first }}{{ doctor.last_name|first }}
+            </div>
+
+            <div class="profile-info">
+                <span class="doctor-specialization">
+                    {{ doctor.specialization.name }}
+                </span>
+
+                <h1>{{ doctor }}</h1>
+
+                <p class="profile-experience">
+                    Стаж работы:
+                    {{ doctor.experience_years }} лет
+                </p>
+
+                <div class="profile-description">
+                    {% if doctor.description %}
+                        {{ doctor.description|linebreaks }}
+                    {% else %}
+                        <p>
+                            Дополнительная информация
+                            о специалисте отсутствует.
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+
+        <div class="booking-layout"
+             id="booking-app"
+             data-doctor-id="{{ doctor.id }}">
+
+            <div class="booking-info">
+                <h2>Запись на приём</h2>
+
+                <p>
+                    Выберите удобную дату и свободное
+                    время для посещения специалиста.
+                </p>
+
+                <div class="booking-note">
+                    <strong>Как это работает?</strong>
+
+                    <p>
+                        Выберите свободный временной слот,
+                        подтвердите запись и управляйте
+                        своими приёмами в личном кабинете.
+                    </p>
+                </div>
+            </div>
+
+            <div class="booking-panel">
+
+                <form id="booking-form">
+                    {% csrf_token %}
+
+                    <label for="appointment-date">
+                        Выберите дату
+                    </label>
+
+                    <input
+                        type="date"
+                        id="appointment-date"
+                        required
+                    >
+
+                    <h3>Доступное время</h3>
+
+                    <div
+                        id="slots-container"
+                        class="slots-container"
+                    ></div>
+
+                    <p
+                        id="booking-message"
+                        class="booking-message"
+                        role="status"
+                        aria-live="polite"
+                    ></p>
+
+                    <button
+                        type="submit"
+                        id="book-button"
+                        class="btn btn-primary book-button"
+                        disabled
+                    >
+                        Записаться на приём
+                    </button>
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/doctor_detail.js' %}" defer></script>
+{% endblock %}

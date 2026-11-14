@@ -1,0 +1,115 @@
+
+{% extends "base.html" %}
+
+{% block title %}MedFlow — Запись к врачам{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <div class="container hero-content">
+
+        <div class="hero-text">
+            <span class="hero-label">
+                Забота о здоровье начинается здесь
+            </span>
+
+            <h1>
+                Запишитесь к врачу
+                <span>быстро и удобно</span>
+            </h1>
+
+            <p>
+                Найдите подходящего специалиста,
+                выберите удобное время и запишитесь
+                на приём всего за несколько минут.
+            </p>
+
+            <div class="hero-actions">
+                <a href="/doctors/" class="btn btn-primary">
+                    Найти врача
+                </a>
+
+                <a href="#advantages" class="btn btn-outline">
+                    Подробнее
+                </a>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="hero-card">
+                <div class="hero-card-icon">+</div>
+                <h3>Ваше здоровье — наш приоритет</h3>
+                <p>
+                    Удобный сервис онлайн-записи
+                    к медицинским специалистам.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="advantages" id="advantages">
+    <div class="container">
+
+        <div class="section-heading">
+            <h2>Почему выбирают MedFlow?</h2>
+            <p>
+                Всё необходимое для удобной записи
+                к врачу в одном месте.
+            </p>
+        </div>
+
+        <div class="advantages-grid">
+
+            <div class="advantage-card">
+                <div class="advantage-icon">01</div>
+                <h3>Удобный поиск</h3>
+                <p>
+                    Находите специалистов по имени,
+                    специализации и опыту работы.
+                </p>
+            </div>
+
+            <div class="advantage-card">
+                <div class="advantage-icon">02</div>
+                <h3>Онлайн-запись</h3>
+                <p>
+                    Выбирайте свободное время
+                    и записывайтесь без звонков.
+                </p>
+            </div>
+
+            <div class="advantage-card">
+                <div class="advantage-icon">03</div>
+                <h3>Личный кабинет</h3>
+                <p>
+                    Просматривайте предстоящие приёмы
+                    и управляйте своими записями.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="cta">
+    <div class="container">
+        <div class="cta-content">
+
+            <h2>Готовы записаться на приём?</h2>
+
+            <p>
+                Выберите специалиста и найдите
+                подходящее время.
+            </p>
+
+            <a href="/doctors/" class="btn btn-white">
+                Перейти к врачам
+            </a>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

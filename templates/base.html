@@ -1,0 +1,72 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}MedFlow{% endblock %}</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <a href="/" class="logo">MedFlow</a>
+
+            <nav class="navigation">
+                <a href="/">Главная</a>
+                <a href="/doctors/">Врачи</a>
+                <a href="/appointments/">Мои записи</a>
+            </nav>
+
+            <div class="header-actions">
+
+                <div id="guest-actions" hidden>
+                    <a href="/login/" class="btn btn-outline">
+                        Войти
+                    </a>
+
+                    <a href="/register/" class="btn btn-primary">
+                        Регистрация
+                    </a>
+                </div>
+
+                <div id="user-actions" hidden>
+                    <span id="header-username"></span>
+
+                    <button
+                        type="button"
+                        id="logout-button"
+                        class="btn btn-outline"
+                    >
+                        Выйти
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© MedFlow — сервис записи к врачам</p>
+            <p>Учебный демонстрационный проект</p>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/api.js' %}" defer></script>
+    <script src="{% static 'js/auth.js' %}" defer></script>
+
+    {% block scripts %}
+    {% endblock %}
+</body>
+</html>

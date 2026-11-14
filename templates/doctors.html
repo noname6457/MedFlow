@@ -1,0 +1,107 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Каталог врачей — MedFlow{% endblock %}
+
+{% block content %}
+<section class="doctors-section">
+    <div class="container">
+
+        <div class="catalog-heading">
+            <span class="hero-label">
+                Наши специалисты
+            </span>
+
+            <h1>Найдите своего врача</h1>
+
+            <p>
+                Выберите подходящего специалиста
+                и запишитесь на удобное время.
+            </p>
+        </div>
+
+        <div class="catalog-layout">
+
+            <aside class="catalog-filters">
+                <h2>Фильтры</h2>
+
+                <div class="filter-group">
+                    <label for="doctor-search">
+                        Фамилия врача
+                    </label>
+
+                    <input
+                        type="search"
+                        id="doctor-search"
+                        placeholder="Например, Иванов"
+                    >
+                </div>
+
+                <div class="filter-group">
+                    <label for="specialization-filter">
+                        Специализация
+                    </label>
+
+                    <select id="specialization-filter">
+                        <option value="">
+                            Все специализации
+                        </option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="experience-filter">
+                        Минимальный стаж
+                    </label>
+
+                    <select id="experience-filter">
+                        <option value="">Любой</option>
+                        <option value="1">От 1 года</option>
+                        <option value="3">От 3 лет</option>
+                        <option value="5">От 5 лет</option>
+                        <option value="10">От 10 лет</option>
+                        <option value="15">От 15 лет</option>
+                    </select>
+                </div>
+
+                <button
+                    type="button"
+                    id="reset-filters"
+                    class="btn btn-outline reset-button"
+                >
+                    Сбросить фильтры
+                </button>
+            </aside>
+
+            <div class="catalog-main">
+
+                <div class="catalog-toolbar">
+                    <h2>Доступные специалисты</h2>
+
+                    <span id="doctors-count">
+                        Загрузка...
+                    </span>
+                </div>
+
+                <div
+                    id="doctors-grid"
+                    class="doctors-grid"
+                    aria-live="polite"
+                ></div>
+
+                <div
+                    id="catalog-message"
+                    class="catalog-message"
+                    role="status"
+                ></div>
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/doctors.js' %}" defer></script>
+{% endblock %}

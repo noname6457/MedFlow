@@ -1,0 +1,60 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Мои записи — MedFlow{% endblock %}
+
+{% block content %}
+<section class="appointments-section">
+    <div class="container">
+
+        <div class="catalog-heading">
+            <span class="hero-label">Личный кабинет</span>
+            <h1>Мои записи на приём</h1>
+            <p>
+                Просматривайте предстоящие приёмы
+                и управляйте своими бронированиями.
+            </p>
+        </div>
+
+        <div class="appointments-toolbar">
+            <h2>Предстоящие приёмы</h2>
+
+            <a href="/doctors/" class="btn btn-primary">
+                + Новая запись
+            </a>
+        </div>
+
+        <div
+            id="upcoming-appointments"
+            class="appointments-grid"
+        ></div>
+
+        <h2 class="appointments-history-title">
+            История приёмов
+        </h2>
+
+        <div
+            id="past-appointments"
+            class="appointments-grid"
+        ></div>
+
+        <p
+            id="appointments-message"
+            class="catalog-message"
+            role="status"
+            aria-live="polite"
+        >
+            Загружаем записи...
+        </p>
+
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script
+    src="{% static 'js/appointments.js' %}"
+    defer
+></script>
+{% endblock %}
