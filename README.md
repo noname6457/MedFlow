@@ -89,7 +89,7 @@ MedFlow — учебное веб-приложение для онлайн-за�
 
 ### 1. Клонирование
 
-git clone <REPOSITORY_URL>
+git clone https://github.com/noname6457/MedFlow
 
 cd MedFlow
 
